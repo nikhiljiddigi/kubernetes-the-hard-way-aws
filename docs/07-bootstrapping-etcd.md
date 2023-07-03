@@ -13,8 +13,8 @@ for instance in controller-0 controller-1 controller-2; do
     "Name=instance-state-name,Values=running" \
     --output text --query 'Reservations[].Instances[].PublicIpAddress')
 
-  ssh -i kubernetes.id_rsa ubuntu@$external_ip wget -q --show-progress --https-only --timestamping \
-  'https://github.com/etcd-io/etcd/releases/download/v3.4.15/etcd-v3.4.15-linux-amd64.tar.gz'
+  scp -i kubernetes.id_rsa etcd-setup.sh ubuntu@${external_ip}:~/
+  ssh -i kubernetes.id_rsa ubuntu@$external_ip "sh etcd-setup.sh"
 done
 ```
 
